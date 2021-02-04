@@ -558,7 +558,8 @@ const PDFViewerApplication = {
     this.passwordPrompt = new PasswordPrompt(
       appConfig.passwordOverlay,
       this.overlayManager,
-      this.l10n
+      this.l10n,
+      this.isViewerEmbedded
     );
 
     this.pdfOutlineViewer = new PDFOutlineViewer({
@@ -657,26 +658,22 @@ const PDFViewerApplication = {
   },
 
   get supportsFullscreen() {
-    let support;
     if (typeof PDFJSDev !== "undefined" && PDFJSDev.test("MOZCENTRAL")) {
-      support =
-        document.fullscreenEnabled === true ||
-        document.mozFullScreenEnabled === true;
-    } else {
-      const doc = document.documentElement;
-      support = !!(
-        doc.requestFullscreen ||
-        doc.mozRequestFullScreen ||
-        doc.webkitRequestFullScreen
-      );
+      return shadow(this, "supportsFullscreen", document.fullscreenEnabled);
+    }
+    const doc = document.documentElement;
+    let support = !!(
+      doc.requestFullscreen ||
+      doc.mozRequestFullScreen ||
+      doc.webkitRequestFullScreen
+    );
 
-      if (
-        document.fullscreenEnabled === false ||
-        document.mozFullScreenEnabled === false ||
-        document.webkitFullscreenEnabled === false
-      ) {
-        support = false;
-      }
+    if (
+      document.fullscreenEnabled === false ||
+      document.mozFullScreenEnabled === false ||
+      document.webkitFullscreenEnabled === false
+    ) {
+      support = false;
     }
     return shadow(this, "supportsFullscreen", support);
   },
