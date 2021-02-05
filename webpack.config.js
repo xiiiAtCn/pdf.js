@@ -31,7 +31,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'web/viewer.html'),
-      inject: 'body'
+      inject: 'body',
+      name: 'viewer.html'
     })
   ]
 };

@@ -172,9 +172,9 @@ class BaseViewer {
         throw new Error("Invalid `container` and/or `viewer` option.");
       }
 
-      if (getComputedStyle(this.container).position !== "absolute") {
-        throw new Error("The `container` must be absolutely positioned.");
-      }
+      // if (getComputedStyle(this.container).position !== "absolute") {
+      //   throw new Error("The `container` must be absolutely positioned.");
+      // }
     }
     this.eventBus = options.eventBus;
     this.linkService = options.linkService || new SimpleLinkService();
