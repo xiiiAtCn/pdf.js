@@ -15,6 +15,9 @@
 
 import { viewerCompatibilityParams } from "./viewer_compatibility.js";
 
+const query = new URLSearchParams(location.search.slice(1));
+const file = query.get("id");
+
 const OptionKind = {
   VIEWER: 0x02,
   API: 0x04,
@@ -34,7 +37,7 @@ const defaultOptions = {
   },
   defaultUrl: {
     /** @type {string} */
-    value: "compressed.tracemonkey-pldi-09.pdf",
+    value: file,
     kind: OptionKind.VIEWER,
   },
   defaultZoomValue: {
